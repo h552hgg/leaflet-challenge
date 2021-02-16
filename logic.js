@@ -94,8 +94,6 @@ d3.json(queryUrl, function (data) {
   };
 
 
-
-
   var overlayMaps = {
     Earthquakes: earthquakes
   };
@@ -130,6 +128,8 @@ d3.json(queryUrl, function (data) {
         return "#98ee00";
     }
   }
+
+  //Create the legend
   var legend = L.control({ position: 'bottomright' });
   legend.onAdd = function (map) {
 
@@ -150,7 +150,7 @@ d3.json(queryUrl, function (data) {
 
     return div;
   };
-
+  //Add To map
   legend.addTo(myMap);
 
 });
