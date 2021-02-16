@@ -1,8 +1,9 @@
-
+//use a variable to call in the json
 var queryUrl = "https://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/all_week.geojson";
 
 
 d3.json(queryUrl, function (data) {
+  //Use the function to make the size of the magnitude visible/ larger 
   function radiusSize(Magnitude) {
     if (Magnitude === 0) {
       return 1;
@@ -20,6 +21,7 @@ d3.json(queryUrl, function (data) {
       weight: 0.5
     };
   }
+  //Create a function to choose the color for the fill 
   function chooseColor(depth) {
     switch (true) {
       case depth > 90:
@@ -37,7 +39,7 @@ d3.json(queryUrl, function (data) {
     }
   }
 
-
+  //pull coordinates using latlng  for the markers 
   var earthquakes = L.geoJSON(data, {
     pointToLayer: function (data, latlng) {
       // console.log(latlng)
@@ -47,7 +49,7 @@ d3.json(queryUrl, function (data) {
 
 
     style: styleInfo,
-
+    //use on the eachfeature to go grab place,time and maginitude for the popup bubble for the markers 
     onEachFeature: function (feature, layer) {
 
 
@@ -56,7 +58,7 @@ d3.json(queryUrl, function (data) {
 
     }
   });
-
+  //Create tile layers/ maps
 
   var graymap = L.tileLayer("https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}", {
     attribution: "© <a href='https://www.mapbox.com/about/maps/'>Mapbox</a> © <a href='http://www.openstreetmap.org/copyright'>OpenStreetMap</a> <strong><a href='https://www.mapbox.com/map-feedback/' target='_blank'>Improve this map</a></strong>",
@@ -98,7 +100,7 @@ d3.json(queryUrl, function (data) {
     Earthquakes: earthquakes
   };
 
-
+  // Create the map and assign it a variable 
   var myMap = L.map("map", {
     center: [
       40.52, 34.34
@@ -107,11 +109,11 @@ d3.json(queryUrl, function (data) {
     layers: [graymap, satellitemap, outdoors, earthquakes]
   });
 
-
+  //Filter/ control layers 
   L.control.layers(baseMaps, overlayMaps, {
     collapsed: false
   }).addTo(myMap);
-
+  // Function use to assign colors for legend 
   function legendColor(depth) {
     switch (true) {
       case depth > 90:
@@ -136,7 +138,7 @@ d3.json(queryUrl, function (data) {
     var div = L.DomUtil.create('div', 'info legend'),
 
       categories = [10, 30, 50, 70, 90,],
-      labels = ['-10-10', '10-30', '30-50', '50-70', '70-90'];
+      labels = ['-10-10', '-10-30', '30-50', '50-70', '70-90'];
 
 
 
