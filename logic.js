@@ -39,9 +39,11 @@ d3.json(queryUrl, function (data) {
 
 
   var earthquakes = L.geoJSON(data, {
-    pointToLayer: function (feature, latlng) {
+    pointToLayer: function (data, latlng) {
+      // console.log(latlng)
       return L.circleMarker(latlng);
     },
+
 
 
     style: styleInfo,
@@ -111,5 +113,44 @@ d3.json(queryUrl, function (data) {
   L.control.layers(baseMaps, overlayMaps, {
     collapsed: false
   }).addTo(myMap);
+
+  function legendColor(depth) {
+    switch (true) {
+      case depth > 90:
+        return "#ea2c2c";
+      case depth > 70:
+        return "#ea822c";
+      case depth > 50:
+        return "#ee9c00";
+      case depth > 30:
+        return "#eecc00";
+      case depth > 10:
+        return "#d4ee00";
+      default:
+        return "#98ee00";
+    }
+  }
+  var legend = L.control({ position: 'bottomright' });
+  legend.onAdd = function (map) {
+
+    var div = L.DomUtil.create('div', 'info legend'),
+
+      categories = [10, 30, 50, 70, 90,],
+      labels = ['-10-10', '10-30', '30-50', '50-70', '70-90'];
+
+
+
+    for (var i = 0; i < categories.length; i++) {
+      div.innerHTML +=
+
+        '<i style="background:' + legendColor(categories[i] + 1) + '"></i> ' +
+        (categories[i] + categories[i + 1] ? ' ' + labels[i + 1] + '<br>' : ' 90 +');
+    }
+
+
+    return div;
+  };
+
+  legend.addTo(myMap);
 
 });
