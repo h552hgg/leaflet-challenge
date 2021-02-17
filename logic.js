@@ -126,8 +126,9 @@ d3.json(queryUrl, function (data) {
         return "#eecc00";
       case depth > 10:
         return "#d4ee00";
+
       default:
-        return "#98ee00";
+        return "#7bee00"
     }
   }
 
@@ -137,8 +138,8 @@ d3.json(queryUrl, function (data) {
 
     var div = L.DomUtil.create('div', 'info legend'),
 
-      categories = [10, 30, 50, 70, 90,],
-      labels = ['-10-10', '-10-30', '30-50', '50-70', '70-90'];
+      categories = [0, 10, 30, 50, 70, 90],
+      labels = ['', '-10-10', '10-30', '30-50', '50-70', '70-90'];
 
 
 

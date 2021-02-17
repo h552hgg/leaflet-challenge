@@ -11,8 +11,12 @@ html {
   height: 100%;
 }
 .legend {
-  line-height: 18px;
+  padding: 6px 8 px;
+  line-height: 24px;
   color: #555;
+  background:white;
+  
+  
 }
 .legend i {
   width: 18px;
